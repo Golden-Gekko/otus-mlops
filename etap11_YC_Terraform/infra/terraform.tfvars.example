@@ -1,0 +1,9 @@
+yc_token     = "A"
+yc_cloud_id  = ""
+yc_folder_id = ""
+yc_zone      = ""
+
+dataproc_cluster_name = ""
+bucket_name           = ""
+public_key_path       = ""
+private_key_path      = ""
