@@ -4,4 +4,6 @@ terraform.tfstate
 terraform.tfstate.backup
 .vs/
 data/
-
+.env
+*.json
+__pycache__
