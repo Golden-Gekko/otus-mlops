@@ -134,7 +134,10 @@ terraform destroy
 
 ## Скриншоты
 
-### Наличие очищенного `.parquet` файла
+### Структура bucket
 
-![hdfs dfs -ls /user/ubuntu/data](screenshots/parquet.png)
+![Структура bucket](screenshots/bucket.png)
 
+### Выполнение DAG
+
+![DAG](screenshots/dag.png)
