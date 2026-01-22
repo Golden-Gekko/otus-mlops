@@ -7,3 +7,5 @@ data/
 .env
 *.json
 __pycache__
+downloaded_file.txt
+*.tar.gz

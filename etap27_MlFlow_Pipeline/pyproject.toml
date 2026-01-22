@@ -1,0 +1,17 @@
+[project]
+name = "etap27-mlflow-pipeline"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "boto3==1.42.14",
+    "cryptography==46.0.3",
+    "httpx==0.28.1",
+    "mlflow>=3.8.1",
+    "pyjwt==2.10.1",
+    "pyspark>=4.1.1",
+    "requests==2.32.5",
+    "tqdm==4.67.1",
+    "yandexcloud==0.371.0",
+]
