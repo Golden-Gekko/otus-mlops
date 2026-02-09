@@ -9,3 +9,6 @@ data/
 __pycache__
 downloaded_file.txt
 *.tar.gz
+etap32_AB_testing/src/___2_ab_test_train.py
+etap32_AB_testing/src/___ab_test_train.py
+.gitignore
