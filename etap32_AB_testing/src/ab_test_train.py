@@ -460,6 +460,8 @@ def train_model_with_hp(
 
                         except Exception as e:
                             log_message(f'WARNING: Не удалось выполнить bootstrap анализ: {str(e)}')
+                            log_message(
+                                f'Traceback:\n{traceback.format_exc()}')
                     else:
                         log_message('INFO: Champion модель не найдена')
 
