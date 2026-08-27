@@ -29,6 +29,12 @@ resource "yandex_airflow_cluster" "airflow_cluster" {
     max_count          = 2
     resource_preset_id = "c1-m4"
   }
+  
+  # Обязательно для Airflow 3.x
+  dag_processor = {
+    count              = 1
+    resource_preset_id = "c1-m4"
+  }
 
   # Дополнительные настройки Airflow через airflow.cfg
   airflow_config = {
@@ -51,3 +57,4 @@ resource "yandex_airflow_cluster" "airflow_cluster" {
     min_level = "INFO"
   }
 }
+
