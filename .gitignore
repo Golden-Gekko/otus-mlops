@@ -161,4 +161,4 @@ etap32_AB_testing/src/___ab_test_train.py
 digest.txt
 pyproject.toml
 uv.lock
-main.py
+logs/

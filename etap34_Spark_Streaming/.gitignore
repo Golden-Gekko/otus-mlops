@@ -1,0 +1,17 @@
+# Локальные секреты и состояние Terraform
+infra/terraform.tfvars
+infra/variables.json
+infra/.terraform/
+infra/*.tfstate
+infra/*.tfstate.*
+infra/.terraform.tfstate.lock.info
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Env
+.env
+**/.env
