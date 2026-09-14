@@ -1,0 +1,88 @@
+terraform {
+  required_providers {
+    yandex = {
+      source  = "yandex-cloud/yandex"
+      version = ">= 0.119.0"
+    }
+  }
+  required_version = ">= 1.3.0"
+}
+
+resource "yandex_vpc_network" "main" {
+  name      = "fraud-api-network"
+  folder_id = var.folder_id
+}
+
+resource "yandex_vpc_subnet" "main" {
+  name           = "fraud-api-subnet"
+  zone           = var.zone
+  network_id     = yandex_vpc_network.main.id
+  v4_cidr_blocks = [var.network_cidr]
+  folder_id      = var.folder_id
+}
+
+resource "yandex_vpc_security_group" "k8s" {
+  name       = "fraud-api-k8s-sg"
+  network_id = yandex_vpc_network.main.id
+  folder_id  = var.folder_id
+
+  ingress {
+    protocol       = "TCP"
+    description    = "Allow HTTP"
+    v4_cidr_blocks = ["0.0.0.0/0"]
+    port           = 80
+  }
+
+  ingress {
+    protocol       = "TCP"
+    description    = "Allow HTTPS"
+    v4_cidr_blocks = ["0.0.0.0/0"]
+    port           = 443
+  }
+
+  ingress {
+    protocol       = "TCP"
+    description    = "Allow API port"
+    v4_cidr_blocks = ["0.0.0.0/0"]
+    port           = 8000
+  }
+
+  ingress {
+    protocol       = "TCP"
+    description    = "Allow Kubernetes API"
+    v4_cidr_blocks = ["0.0.0.0/0"]
+    port           = 6443
+  }
+
+  ingress {
+    protocol       = "TCP"
+    description    = "Allow Kubernetes NodePort range"
+    v4_cidr_blocks = ["0.0.0.0/0"]
+    from_port      = 30000
+    to_port        = 32767
+  }
+
+  ingress {
+    protocol       = "ANY"
+    description    = "Allow YC load balancer health checks"
+    v4_cidr_blocks = ["198.18.235.0/24", "198.18.248.0/24"]
+    from_port      = 0
+    to_port        = 65535
+  }
+
+  ingress {
+    protocol       = "ANY"
+    description    = "Allow internal traffic"
+    v4_cidr_blocks = [var.network_cidr]
+    from_port      = 0
+    to_port        = 65535
+  }
+
+  egress {
+    protocol       = "ANY"
+    description    = "Allow outbound traffic"
+    v4_cidr_blocks = ["0.0.0.0/0"]
+    from_port      = 0
+    to_port        = 65535
+  }
+}

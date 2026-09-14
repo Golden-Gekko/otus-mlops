@@ -1,0 +1,12 @@
+yc_config = {
+  token     = "y0__..."          # ваш OAuth-токен
+  cloud_id  = "b1g..."           # Cloud ID
+  folder_id = "b1g..."           # Folder ID
+  zone      = "ru-central1-a"
+}
+
+cluster_name   = "fraud-api-k8s"
+node_count     = 3
+node_preset    = "s3-c4-m16"
+node_disk_size = 50
+network_cidr   = "10.200.0.0/16"
