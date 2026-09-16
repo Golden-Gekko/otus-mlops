@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fraud-api-config
+  namespace: fraud-api
+data:
+  APP_NAME: "fraud-api"
+  APP_HOST: "0.0.0.0"
+  APP_PORT: "8000"
+  LOG_LEVEL: "INFO"
+  MLFLOW_TRACKING_URI: "http://mlflow-server:5000"
+  MLFLOW_MODEL_NAME: "fraud_detection_rf"
+  MLFLOW_MODEL_ALIAS: "champion"
+  CPU_LAG_TICKS: "150000"

@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fraud-api
+  namespace: fraud-api
+  labels:
+    app: fraud-api
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: fraud-api
+  template:
+    metadata:
+      labels:
+        app: fraud-api
+    spec:
+      containers:
+        - name: fraud-api
+          image: ghcr.io/golden-gekko/otus-mlops-alerting:latest
+          imagePullPolicy: Always
+          envFrom:
+            - secretRef:
+                name: s3-creds
+            - configMapRef:
+                name: fraud-api-config
+          env:
+            - name: MLFLOW_S3_ENDPOINT_URL
+              value: 'https://storage.yandexcloud.net'
+            - name: AWS_DEFAULT_REGION
+              value: 'ru-central1'
+          ports:
+            - containerPort: 8000
+              name: http
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 5
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 10
+            failureThreshold: 5
+          resources:
+            requests:
+              memory: "2Gi"
+              cpu: "500m"
+            limits:
+              memory: "4Gi"
+              cpu: "1000m"
